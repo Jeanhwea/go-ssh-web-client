@@ -55,6 +55,9 @@ func main() {
 		if user == "" {
 			log.Fatal("user can not be empty")
 		}
+		if len(cfg.Password) > 0 {
+			password = cfg.Password
+		}
 		if password == "" && identityFile == "" {
 			log.Fatal("password can not be empty")
 		}
@@ -64,6 +67,9 @@ func main() {
 		log.Fatal("could not parse config file: ", err)
 	} else {
 		addr := fmt.Sprintf("%s:%d", cfg.Host, cfg.Port)
+		if len(cfg.Password) > 0 {
+			password = cfg.Password
+		}
 		if password != "" {
 			handler = &sshHandler{addr: addr, user: cfg.User, secret: cfg.Password}
 		} else {
